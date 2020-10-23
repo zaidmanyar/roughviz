@@ -1,0 +1,54 @@
+<html>
+    <body>
+        
+        <div id={{id_name|tojson}}></div>
+
+        <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+        <script>
+            require.config({paths: {roughviz: "https://unpkg.com/rough-viz@1.0.5/dist/roughviz.min"}});
+            require(["roughviz"], function(roughviz) {
+
+                new roughviz.Line(
+                    {
+                        element: "#".concat({{idname|tojson}}),
+                        data: path,
+                        y1: y1,
+                        y2: y2,
+                        y3: y3,
+                        axisFontSize: {{kwargs.axisFontSize|default("1.5rem")|tojson}},
+	                    axisRoughness: {{kwargs.axisRoughness|default(0.5)}},
+	                    axisStrokeWidth: {{kwargs.axisStrokeWidth|default(0.5)}},
+	                    bowing: {{kwargs.bowing|default(0)}},
+                        circle: {{kwargs.circle|default(true)|tojson}}
+                        circleRadius: {{kwargs.circleRadius|default(10)}}
+                        circleRoughness: {{kwargs.circleRoughness|default(2)}}
+                        fillStyle: {{kwargs.fillStyle|default("cross-hatch")|tojson}},
+	                    fillWeight: {{kwargs.fillWeight|default(0)}},
+	                    font: {{kwargs.font|default(0)}},
+                        interactive: {{kwargs.interactive|default(true)|tojson}}
+                        labelFontSize: {{kwargs.labelFontSize|default("2rem")|tojson}},
+                        margin: {top: 50, right: 20, bottom: 70, left: 100},
+                        roughness: {{kwargs.roughness|default(1)}},
+	                    simplification: {{kwargs.simplification|default(0.2)}},
+	                    stroke: {{kwargs.stroke|default("black")|tojson}},
+	                    strokeWidth: {{kwargs.strokeWidth|default(1)}},
+	                    title: {{kwargs.title|default("")|tojson}},
+	                    titleFontSize: {{kwargs.titleFontSize|default("3rem")|tojson}},
+	                    tooltipFontSize: {{kwargs.tooltipFontSize|default("3rem")|tojson}},
+	                    xLabel: {{kwargs.xLabel|default("")|tojson}},
+	                    yLabel: {{kwargs.yLabel|default("")|tojson}},
+                    }
+                );
+                    var text = document.querySelectorAll(".xAxis{{id_name}} .tick text");
+	                var i;
+                    for (i = 0; i < text.length; i++) {
+                        text[i].setAttribute("transform", "rotate(0)");
+                        text[i].style.textAnchor="middle";
+                    }
+                    document.getElementById("{{id_name}}").style.height = "{{kwargs.height|default(400)|int - 20}}px";
+                    document.querySelector("#{{id_name}} svg").style.height = "{{kwargs.height|default(400)|int - 20}}px";
+
+                });
+        </script>
+    </body>
+</html>
